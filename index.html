@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TendAI – The agentic layer for private capital</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -12,49 +12,42 @@
       --accent: hsl(142, 70%, 40%);
       --muted: #f3f4f6;
       --radius: 12px;
+      --ring: rgba(16, 185, 129, 0.18);
+      --border: #e5e7eb;
     }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       background: var(--background);
       color: var(--foreground);
       -webkit-font-smoothing: antialiased;
       line-height: 1.6;
     }
+
+    /* Header */
     header {
-      position: sticky;
-      top: 0;
+      position: sticky; top: 0; z-index: 10;
       background: rgba(255,255,255,0.9);
       backdrop-filter: blur(6px);
-      border-bottom: 1px solid #e5e7eb;
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.25rem;
+      display: flex; justify-content: space-between; align-items: center;
       font-weight: 600;
     }
-    header .brand {
-      font-size: 1.2rem;
-    }
-    header .brand span {
-      margin-right: 0.4rem;
-    }
-    main {
-      max-width: 750px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-    }
+    header .brand { font-size: 1.05rem; display: flex; align-items: center; gap: .45rem; }
+    header a { text-decoration: none; color: var(--foreground); opacity: .85; }
+    header a:hover { opacity: 1; }
+
+    /* Layout */
+    main { max-width: 840px; margin: 3rem auto; padding: 0 1rem; }
     section {
-      background: white;
+      background: #fff;
       border-radius: var(--radius);
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(16,185,129,0.04);
       position: relative;
     }
     section::before {
@@ -63,25 +56,72 @@
       font-size: 3rem;
       color: var(--accent);
       opacity: 0.08;
-      top: -1rem;
-      right: 1rem;
+      top: -1rem; right: 1rem;
       transform: rotate(-15deg);
+      pointer-events: none;
     }
-    h2 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-top: 0;
-      margin-bottom: 1rem;
+
+    h1 { font-size: 2rem; font-weight: 700; margin: 0 0 1.25rem; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin: 0 0 1rem; }
+    p  { margin: 0 0 1rem; }
+
+    /* Media section */
+    .media {
+      background: linear-gradient(180deg, #fff, var(--muted));
+      padding: 1.25rem;
     }
-    p {
-      margin-bottom: 1rem;
+    .media::before { display: none; } /* no seed on this one */
+    .media-wrap {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
     }
+    @media (min-width: 760px) {
+      .media-wrap {
+        grid-template-columns: 1.1fr 0.9fr; /* gentle asymmetry, like the inspo */
+        align-items: start;
+      }
+    }
+    .frame {
+      border-radius: calc(var(--radius) + 6px);
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 0 0 6px var(--ring),
+        0 10px 30px rgba(0,0,0,0.06);
+      position: relative;
+      isolation: isolate;
+    }
+    .frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Add a tiny rotation & layered paper feel */
+    .frame.is-tilt-left { transform: rotate(-1.25deg); }
+    .frame.is-tilt-right { transform: rotate(0.8deg); }
+
+    /* Optional captions (hidden by default on small) */
+    .caption {
+      position: absolute; left: 12px; bottom: 12px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .35rem .6rem;
+      font-size: .8rem;
+      backdrop-filter: blur(4px);
+      display: none;
+    }
+    @media (min-width: 760px) { .caption { display: inline-block; } }
+
     footer {
       text-align: center;
       font-size: 0.9rem;
       color: #555;
       padding: 2rem 1rem;
-      border-top: 1px solid #e5e7eb;
+      border-top: 1px solid var(--border);
       margin-top: 3rem;
     }
   </style>
@@ -89,41 +129,42 @@
 <body>
   <header>
     <div class="brand"><span>🌱</span>TendAI</div>
-    <div><a href="#about" style="text-decoration:none; color:var(--foreground);"></div>
+    <nav><a href="#about">About</a></nav>
   </header>
 
   <main>
+    <!-- Intro / value prop -->
     <section>
       <h1>TendAI is the agentic layer for private capital</h1>
-      <p>
-        TendAI is the agentic layer for private capital that keeps track of the early seeds, nurtures the sprouts, and watches what's growing in your portfolio. Some startups sprout fast, others need time, and a few grow into the kind of trees you name parks after — generational companies that change everything.
-      </p>
-      <p>
-        But without attention, even the best seedlings wither.
-      </p>
-      <p>
-        TendAI works 24/7 as the connective tissue between your team and founders, spotting traction in your dealflow, surfacing follow-on opportunities, and ensuring your most promising investments get the sunlight and capital they need.
-      </p>
-      <p>
-        TendAI helps you cultivate what's already planted — so nothing exceptional dies from neglect. Some startups scale fast. Others take time. A few become the kind of companies that leave a legacy. We make sure none are forgotten in the shuffle. If you're excited to work at the intersection of AI, venture, and founder experience — come grow with us.
-      </p>
+      <p>TendAI is the agentic layer for private capital that keeps track of the early seeds, nurtures the sprouts, and watches what's growing in your portfolio. Some startups sprout fast, others need time, and a few grow into the kind of trees you name parks after — generational companies that change everything.</p>
+      <p>But without attention, even the best seedlings wither.</p>
+      <p>TendAI works 24/7 as the connective tissue between your team and founders, spotting traction in your dealflow, surfacing follow-on opportunities, and ensuring your most promising investments get the sunlight and capital they need.</p>
+      <p>TendAI helps you cultivate what's already planted — so nothing exceptional dies from neglect. Some startups scale fast. Others take time. A few become the kind of companies that leave a legacy. We make sure none are forgotten in the shuffle. If you're excited to work at the intersection of AI, venture, and founder experience — come grow with us.</p>
     </section>
 
+    <!-- Media gallery (between sections) -->
+    <section class="media" aria-label="TendAI community and space">
+      <div class="media-wrap">
+        <figure class="frame is-tilt-left">
+          <img src="group.jpg" alt="Group of founders and builders gathered at an event" loading="lazy" decoding="async" />
+          <figcaption class="caption">Founders &amp; builders</figcaption>
+        </figure>
+        <figure class="frame is-tilt-right">
+          <img src="rooftop.jpg" alt="Rooftop garden with NYC skyline in the background" loading="lazy" decoding="async" />
+          <figcaption class="caption">Room to grow</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- About -->
     <section id="about">
       <h2>About Kenneth Auchenberg</h2>
-      <p>
-        Kenneth is a partner at AlleyCorp, focused on incubations and investments across AI &amp; Cloud, digital infrastructure, developer tools, and software.
-      </p>
-      <p>
-        Prior to joining AlleyCorp, Kenneth spent two decades building products and leading engineering teams at Stripe and Microsoft. He was also an angel investor, supporting founders building for developers.
-      </p>
-      <p>
-        Born and raised in Copenhagen, he co-founded the ColdFront technology conference, and was a part of Danish startups Podio and ZYB, both of which were acquired by Citrix and Vodafone, respectively.
-      </p>
+      <p>Kenneth is a partner at AlleyCorp, focused on incubations and investments across AI &amp; Cloud, digital infrastructure, developer tools, and software.</p>
+      <p>Prior to joining AlleyCorp, Kenneth spent two decades building products and leading engineering teams at Stripe and Microsoft. He was also an angel investor, supporting founders building for developers.</p>
+      <p>Born and raised in Copenhagen, he co-founded the ColdFront technology conference, and was a part of Danish startups Podio and ZYB, both of which were acquired by Citrix and Vodafone, respectively.</p>
     </section>
   </main>
 
-  <footer>
-  </footer>
+  <footer>© 2025 TendAI</footer>
 </body>
 </html>
